@@ -24,7 +24,7 @@ if top_stories_count > 500:
 elif top_stories_count == 0:
     log(f"Obtained zero stories from the api end point !!!")
 else:
-    log(f"Successfully obtained {top_stories_count} from the api endpoint.")
+    log(f"Successfully obtained {top_stories_count} stories from the api endpoint.")
 
 
 # This dictionary has id -> story mapping and has all the details of the stories.
@@ -34,19 +34,26 @@ headers = {"User-Agent": "TrendPulse/1.0"}
 successful_count = 0
 failed_count  = 0
 
-log(f"Fetching the story details for each obtained id.")
+log(f"Fetching the story details for each obtained id: \n")
 for id in top_stories_list:
     try:
         response = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{id}.json", headers=headers)
     except Exception as e:
-        log(f"Error: Unable to fetch details for story with id: {id}")
+        # log(f"Error: Unable to fetch details for story with id: {id}")
         failed_count += 1
     else:
         successful_count += 1
-        log(f"Successfully got the response for story with id: {id}")
+        # log(f"Successfully got the response for story with id: {id}")
         story_dict = response.json()
         stories[id] = story_dict
+    
 
+    # Carriage Return (\r) sets the cursor at the beginning of the line
+    # I am then Erasing the current line by printing 100 spaces.
+    print("\r" + " " * 100, end="")
+    print(f"\rStatus: Successful Requests: {successful_count}, Failed Requests: {failed_count}, Total Requests: {successful_count+failed_count}", end="")
+
+print("")
 log(f"Successfully fetched {successful_count} stories.")
 log(f"Failed to fetch {failed_count} stories.")
 
@@ -102,7 +109,8 @@ for category, keywords in categories.items():
 
     total_count+= count
     log(f"{count} stories matched the category {category}\n")
-    time.sleep(5)
+    # log("Sleeping for 5 seconds") 
+    time.sleep(2)
 
 log(f"Classified {total_count} stories into categories")
 
