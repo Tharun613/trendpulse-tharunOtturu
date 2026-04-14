@@ -36,7 +36,7 @@ for category, count in zip(unique, counts):
 print(f"\nMost stories in: {max_category} ({max_count} stories)\n")
 
 np_comments = df['num_comments'].values
-max_index = np.argmax(np_comments)
+max_index = np.argmax(np_comments) # This will fetch the index where the number of comments is highest
 
 story_with_most_comments = df.iloc[max_index]
 
