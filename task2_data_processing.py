@@ -1,5 +1,6 @@
 
 import pandas as pd
+import sys
 
 DEBUG=True
 
@@ -7,11 +8,18 @@ def log(message):
     if DEBUG:
         print(message)
 
-filename = "data/trends_20260414.json"
+default_input_json = "trends_20260414.json"
+
+filename = default_input_json
+if len(sys.argv) < 2:
+    print("Usage: python task2_data_processing.py <input json>")
+    print(f"Input Json is not passed as argument. Using default hardcoded value ... {default_input_json}")
+    filename = sys.argv[1]
+
 df = pd.read_json(filename)
 
 # Print number of rows
-log(f"Loaded {len(df)} stories from {filename}\n")
+print(f"Loaded {len(df)} stories from {filename}\n")
 
 df.drop_duplicates(subset=["post_id"], inplace=True)
 
