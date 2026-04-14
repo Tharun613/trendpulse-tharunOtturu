@@ -8,12 +8,13 @@ def log(message):
     if DEBUG:
         print(message)
 
-default_input_json = "trends_20260414.json"
+default_input_json = "data/trends_20260414.json"
 
 filename = default_input_json
 if len(sys.argv) < 2:
-    print("Usage: python task2_data_processing.py <input json>")
-    print(f"Input Json is not passed as argument. Using default hardcoded value ... {default_input_json}")
+    print("Usage: python task2_data_processing.py <input json>\n")
+    print(f"Input Json is not passed as argument. Using default hardcoded value ... {default_input_json}\n")
+else:
     filename = sys.argv[1]
 
 df = pd.read_json(filename)
